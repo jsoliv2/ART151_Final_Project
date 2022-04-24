@@ -57,6 +57,12 @@ let hpDrainRateMultiplier = 1;
 
 let borderEnemySpawnTimer = 0;
 
+window.onload = window.onresize = function() {
+  let gameCanvas = document.getElementById("gameCanvas");
+  gameCanvas.width * window.innerWidth * 0.8;
+  gameCanvas.height * window.innerHeight * 0.8;
+}
+
 function preload() {
   createPlayerAnims();
   createEnemyAnims();
