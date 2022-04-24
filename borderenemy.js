@@ -11,6 +11,8 @@ class BorderEnemy {
   constructor(borderPos, interval) {
     if (playerObj == null) {return;}
     
+    borderEnemyAppearSnd.play();
+    
     this.fireInterval = interval;
     this.borderPosition = borderPos;
     switch (this.borderPosition) {
@@ -66,6 +68,7 @@ class BorderEnemy {
     }
     else {
       enemyProjectiles.push(new EnemyProjectile(this.sprite.position.x, this.sprite.position.y, this.currentDirection));
+      enemyMagicSnd.play();
       this.currentFireTimer = this.fireInterval;
     }
   }

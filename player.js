@@ -3,11 +3,13 @@ class PlayerObject {
   
   attackTimer;
   moveSpeed;
+  speedMod;
   
   currentDirection;
   
   constructor(startX, startY) {
     this.sprite = createSprite(startX, startY, 32, 32);
+    this.sprite.depth = 1;
     this.sprite.addAnimation("idle_down", playerIdleAnimDown);
     this.sprite.addAnimation("idle_up", playerIdleAnimUp);
     this.sprite.addAnimation("idle_right", playerIdleAnimRight);
@@ -20,18 +22,21 @@ class PlayerObject {
     
     this.attackTimer = 0;
     this.moveSpeed = 4;
+    this.speedMod = 1.0;
     
     this.currentDirection = 2; // [0 = Left, 1 = Up, 2 = Right, 3 = Down]
   }
   
   moveCheck() {
+    this.speedMod = (speedPowerupTimer > 0 ? 1.5 : 1.0);
+    
     // Left or Right Arrow Keys
     if (this.attackTimer == 0 && keyDown(37) && !keyDown(38) && !keyDown(39) && !keyDown(40)) {
-      this.sprite.velocity.x = -this.moveSpeed;
+      this.sprite.velocity.x = -this.moveSpeed * this.speedMod;
       this.currentDirection = 0;
     }
     else if (this.attackTimer == 0 && !keyDown(37) && !keyDown(38) && keyDown(39) && !keyDown(40)) {
-      this.sprite.velocity.x = this.moveSpeed;
+      this.sprite.velocity.x = this.moveSpeed * this.speedMod;
       this.currentDirection = 2;
     }
     else {
@@ -42,11 +47,11 @@ class PlayerObject {
 
     // Up or Down Arrow Keys
     if (this.attackTimer == 0 && !keyDown(37) && keyDown(38) && !keyDown(39) && !keyDown(40)) {
-      this.sprite.velocity.y = -this.moveSpeed;
+      this.sprite.velocity.y = -this.moveSpeed * this.speedMod;
       this.currentDirection = 1;
     }
     else if (this.attackTimer == 0 && !keyDown(37) && !keyDown(38) && !keyDown(39) && keyDown(40)) {
-      this.sprite.velocity.y = this.moveSpeed;
+      this.sprite.velocity.y = this.moveSpeed * this.speedMod;
       this.currentDirection = 3;
     }
     else {
@@ -66,6 +71,7 @@ class PlayerObject {
       if (this.attackTimer > 0) {
         if (this.attackTimer == 8) {
           playerProjectile = new Projectile(this.sprite.position.x, this.sprite.position.y, this.currentDirection);
+          playerMagicSnd.play();
         }
         this.attackTimer--;
       }
@@ -151,6 +157,7 @@ class BossObject extends PlayerObject {
       if (this.attackTimer > 0) {
         if (this.attackTimer == 16) {
           mainBossProjectile = new BossProjectile(this.sprite.position.x, this.sprite.position.y, this.currentDirection);
+          enemyMagicSnd.play();
         } 
         this.attackTimer--;
       }

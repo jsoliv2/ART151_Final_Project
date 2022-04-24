@@ -33,6 +33,7 @@ class Projectile {
   
   projectileUpdate() {
     if (bossObj != null && this.sprite.collide(bossObj.sprite)) {
+      enemyHurtSnd.play();
       bossHealth -= (10 * (1 + (1 - (playerHealth / maxPlayerHealth))));
       if (bossHealth < 0) {
         bossHealth = 0;
@@ -41,16 +42,36 @@ class Projectile {
     }
     
     if (borderEnemyObj != null && this.sprite.collide(borderEnemyObj.sprite)) {
+      enemyHurtSnd.play();
+      
       playerHealth += 15;
       if (playerHealth > maxPlayerHealth) {
         playerHealth = maxPlayerHealth;
       }
+      
+      bossHealth -= 5;
+      if (bossHealth < 1) {
+        bossHealth = 1;
+      }
+      
       borderEnemyObj.deleteFlag = true;
       this.travelTimer = 0;
     }
     
     if (ghostEnemyObj != null && this.sprite.collide(ghostEnemyObj.sprite)) {
+      enemyHurtSnd.play();
       ghostEnemyObj.setFreezeTimer();
+      this.travelTimer = 0;
+    }
+    
+    for (let wall of tileObjects) {
+      if (wall.wallType != "blue" && wall.wallType != "green" && this.sprite.collide(wall.sprite)) {
+        magicWallHitSnd.play();
+        this.travelTimer = 0;
+      }
+    }
+    
+    if (playerObj == null) {
       this.travelTimer = 0;
     }
     
@@ -75,10 +96,22 @@ class BossProjectile extends Projectile {
   
   projectileUpdate() {
     if (playerObj != null && this.sprite.collide(playerObj.sprite)) {
+      playerHurtSnd.play();
       playerHealth -= (10 * (1 + (1 - (bossHealth / maxBossHealth))));
       if (playerHealth < 0) {
         playerHealth = 0;
       }
+      this.travelTimer = 0;
+    }
+    
+    for (let wall of tileObjects) {
+      if (wall.wallType != "red" && wall.wallType != "green" && this.sprite.collide(wall.sprite)) {
+        magicWallHitSnd.play();
+        this.travelTimer = 0;
+      }
+    }
+    
+    if (bossObj == null) {
       this.travelTimer = 0;
     }
     
@@ -103,10 +136,22 @@ class EnemyProjectile extends Projectile {
   
   projectileUpdate() {
     if (playerObj != null && this.sprite.collide(playerObj.sprite)) {
+      playerHurtSnd.play();
       playerHealth -= 5;
       if (playerHealth < 0) {
         playerHealth = 0;
       }
+      this.travelTimer = 0;
+    }
+    
+    for (let wall of tileObjects) {
+      if (wall.wallType != "red" && wall.wallType != "green" && this.sprite.collide(wall.sprite)) {
+        magicWallHitSnd.play();
+        this.travelTimer = 0;
+      }
+    }
+    
+    if (borderEnemyObj == null) {
       this.travelTimer = 0;
     }
     

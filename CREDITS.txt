@@ -1,0 +1,8 @@
+DUAL DUEL by Kyle Soliva
+- Sprites created by me
+- Sounds created with JSFXR (https://sfxr.me/)
+- Music:
+  - "Retro Platforming" by David Fesliyan
+  - "8-Bit Presentation" by David Fesliyan
+  - "Land of 8-Bits" by Stephen Bennett
+  - Background music via https://www.FesliyanStudios.com

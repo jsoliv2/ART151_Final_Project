@@ -8,6 +8,8 @@ class GhostEnemy {
   freezeTimer;
   
   constructor() {
+    ghostEnemyAppearSnd.play();
+    
     this.sprite = createSprite(width / 2, height + 64, 32, 32);
     this.targetSprite = playerObj.sprite;
     this.easing = 0.015;
