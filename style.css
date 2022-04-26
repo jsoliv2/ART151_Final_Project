@@ -1,5 +1,17 @@
 html, body {
   width: 100%;
   text-align: center;
-  background-color: #28a9ee;
+  background-color: #28ee5e;
+}
+
+canvas {
+  border: 22px;
+  border-radius: 10px;
+  border-style: inset;
+  border-color: #ee5828 #28a9ee;
+}
+
+p {
+  padding-left:10%;
+  padding-right:10%;
 }

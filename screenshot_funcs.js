@@ -1,6 +1,6 @@
 function takeScreenshot() {
   currentScreenshot = videoCapture.get(0, 0, width, height);
-  //currentScreenshot.filter(THRESHOLD, 0.22);
+  currentScreenshot.filter(INVERT);
   currentScreenshot.resize(width / 4, height / 8);
   
   currentScreenshot.loadPixels();
@@ -20,7 +20,7 @@ function takeScreenshot() {
 
 function takeMenuScreenshot() {
   currentScreenshot = videoCapture.get(0, 0, width, height);
-  //currentScreenshot.filter(THRESHOLD, 0.22);
+  currentScreenshot.filter(INVERT);
   currentScreenshot.resize(width / 4, height / 8);
   
   currentScreenshot.loadPixels();
