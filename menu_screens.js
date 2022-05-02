@@ -55,19 +55,15 @@ function checkMenuInput() {
 
 function drawMenuElements() {
   textAlign(CENTER);
-  textSize(60);
-  fill("blue");
-  text("*~DUAL", width * 0.38, height * 0.25);
-  fill("red");
-  text("DUEL~*", width * 0.62, height * 0.35);
+  image(logoImage, 100, 76);
 
   textSize(25);
   fill("yellow");
-  text("Press Z to face yourself...", width / 2, height * 0.60);
+  text("Press [Z] to face yourself...", width / 2, height * 0.50);
   
   textSize(16);
   fill("yellow");
-  text("Select your headspace with left or right:", width / 2, height * 0.80);
+  text("Select your headspace with left or right:", width / 2, height * 0.70);
   
   textSize(16);
   fill('blue');
@@ -95,5 +91,9 @@ function drawMenuElements() {
       mapString = "<- 0. Empty ->";
       break;
   }
-  text(mapString, width / 2, height * 0.90);
+  text(mapString, width / 2, height * 0.80);
+  
+  textSize(12);
+  fill("gray");
+  text("[+/-]: Adjust Volume | [C]: Credits", width / 2, height - 16);
 }

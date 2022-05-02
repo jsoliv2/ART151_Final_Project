@@ -1,6 +1,7 @@
 DUAL DUEL by Kyle Soliva
 - Sprites created by me
 - Sounds created with JSFXR (https://sfxr.me/)
+- Font is PressStart2P by Cody Boisclair ("CodeMan38")
 - Music:
   - "Retro Platforming" by David Fesliyan
   - "8-Bit Presentation" by David Fesliyan

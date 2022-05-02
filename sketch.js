@@ -1,5 +1,8 @@
 let sceneState = 0; // 0: Title, 1:Game
 
+let quitCounter = 0;
+let resetCounter = 0;
+
 let playerObj;
 let bossObj;
 let borderEnemyObj;
@@ -12,6 +15,8 @@ let enemyProjectiles = [];
 
 let tileObjects;
 let wallSprites;
+
+let logoImage;
 
 let tileImage;
 let tileImageAlt;
@@ -61,6 +66,8 @@ function preload() {
   createPlayerAnims();
   createEnemyAnims();
   loadSoundsAndMusic();
+  
+  logoImage = loadImage("dual_duel_logo.png");
   
   tileImage = loadImage("sprites/cracked_tile.png");
   tileImageAlt = loadImage("sprites/non_cracked_tile.png");
@@ -201,14 +208,32 @@ function draw() {
   switch(sceneState) {
     case 0:
       menuLoop();
+      if (keyWentDown(67)) {
+        alert("DUAL DUEL by Kyle Soliva, 2022\n- Sprites created by me\n- Sounds created with JSFXR (https://sfxr.me/)\n- Font is PressStart2P by Cody Boisclair (\"CodeMan38\")\n- Music:\n  - \"Retro Platforming\" by David Fesliyan\n  - \"8-Bit Presentation\" by David Fesliyan\n  - \"Land of 8-Bits\" by Stephen Bennett\n  - Background music via https://www.FesliyanStudios.com");
+      }
       break;
     case 1:
       gameLoop();
-      if (keyWentDown(82)) { // R
+      
+      if (keyDown(82) && resetCounter >= 60) { // R
+        resetCounter = 0;
         resetGame();
       }
-      else if (keyWentDown(27)) { // Esc
+      else if (keyDown(82) && resetCounter < 60) {
+        resetCounter++;
+      }
+      else if (keyWentUp(82)) {
+        resetCounter = 0;
+      }
+      else if (keyDown(27) && quitCounter >= 60) { // Esc
+        quitCounter = 0;
         quitToMenu();
+      }
+      else if (keyDown(27) && quitCounter < 60) {
+        quitCounter++;
+      }
+      else if (keyWentUp(27)) {
+        quitCounter = 0;
       }
       else {
         /* Nothing */
@@ -216,6 +241,26 @@ function draw() {
       break;
     default:
       break;
+  }
+  
+  if (keyWentDown(107)) { // +
+    if (musicVolume < 10) {
+      musicVolume++;
+      backgroundMusic.setVolume(bgmVol * musicVolume / 10);
+      victoryMusic.setVolume(vmVol * musicVolume / 10);
+      menuMusic.setVolume(mmVol * musicVolume / 10);
+    }
+  }
+  else if (keyWentDown(109)) { // -
+    if (musicVolume > 0) {
+      musicVolume--;
+      backgroundMusic.setVolume(bgmVol * musicVolume / 10);
+      victoryMusic.setVolume(vmVol * musicVolume / 10);
+      menuMusic.setVolume(mmVol * musicVolume / 10);
+    }
+  }
+  else {
+    /* Nothing */
   }
 }
 
@@ -489,7 +534,16 @@ function drawText() {
   textAlign(CENTER);
   textSize(12);
   fill("gray");
-  text("Arrow Keys: Move | [Z]: Cast Magic | [R]: Reset | [Esc]: Quit", width / 2, height - 48);
+  if (quitCounter > 0) {
+    text("Keep holding [Esc] to quit...", width / 2, height - 48);
+  }
+  else if (resetCounter > 0) {
+    text("Keep holding [R] to reset...", width / 2, height - 48);
+  }
+  else {
+    text("Arrow Keys: Move | [Z]: Cast Magic | [R]: Reset | [Esc]: Quit", width / 2, height - 48);
+  }
+  
   textSize(18);
   text("DUAL\nDUEL", width / 2, 32);
   

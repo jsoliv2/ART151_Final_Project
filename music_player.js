@@ -14,8 +14,15 @@ let powerupCollectSnd;
 let stageMenuSelectSnd;
 
 let backgroundMusic;
+let bgmVol = 0.40;
+
 let victoryMusic;
+let vmVol = 0.50;
+
 let menuMusic;
+let mmVol = 0.20;
+
+let musicVolume = 10;
 
 function loadSoundsAndMusic() {
   soundFormats('wav', 'mp3');
@@ -36,11 +43,11 @@ function loadSoundsAndMusic() {
   stageMenuSelectSnd = loadSound("sounds/stage_select.wav");
   
   backgroundMusic = loadSound("sounds/Retro_Platforming.mp3");
-  backgroundMusic.setVolume(0.65);
+  backgroundMusic.setVolume(bgmVol * musicVolume / 10);
   
   victoryMusic = loadSound("sounds/8_Bit_Presentation.mp3");
-  victoryMusic.setVolume(0.55);
+  victoryMusic.setVolume(vmVol * musicVolume / 10);
   
   menuMusic = loadSound("sounds/Land_of_8_Bits.mp3");
-  menuMusic.setVolume(0.25);
+  menuMusic.setVolume(mmVol * musicVolume / 10);
 }
