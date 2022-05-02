@@ -9,7 +9,7 @@ function menuSetup() {
     victoryMusic.stop();
   }
   
-  menuMusic.play();
+  menuMusic.loop();
 }
 
 function menuLoop() {
